@@ -1,5 +1,6 @@
-import ProductViewModal from "./ProductViewModal";
+import ProductViewModal from "./ProductViewModal.jsx";
 import {useState} from "react";
+import trancateText from "../../utils/trancateText.js";
 
 const ProductCard = ({
                          productId,
@@ -58,12 +59,12 @@ const ProductCard = ({
                     }}
 
                     className="text-lg font-semibold mb-2 cursor-pointer">
-                    {productName}
+                    {trancateText(productName,50)}
                 </h2>
 
                 <div className="min-h-20 max-h-20">
                     <p className="text-gray-600 text-sm">
-                        {description}
+                        {trancateText(description, 80)}
                     </p>
                 </div>
 

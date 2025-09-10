@@ -6,7 +6,7 @@ import {fetchProducts} from "../store/index.js";
 const useProductFilter = () => {
     const [searchParams] = useSearchParams();
     const dispatch = useDispatch();
-//
+
     useEffect(() => {
         const params = new URLSearchParams();
 

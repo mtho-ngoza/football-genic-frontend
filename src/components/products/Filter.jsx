@@ -11,7 +11,7 @@ const Filter = ({categories}) => {
     const navigate = useNavigate();
 
     const [category, setCategory] = useState("all");
-    const [sortDir, setsortDir] = useState("asc");
+    const [sortDir, setSortDir] = useState("asc");
     const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
@@ -20,7 +20,7 @@ const Filter = ({categories}) => {
         const currentSearchTerm = searchParams.get("keyword") || "";
 
         setCategory(currentCategory);
-        setsortDir(currentSortDir);
+        setSortDir(currentSortDir);
         setSearchTerm(currentSearchTerm);
     }, [searchParams]);
 
@@ -52,7 +52,7 @@ const Filter = ({categories}) => {
     };
 
     const toggleSortDir = () => {
-        setsortDir((prevOrder) => {
+        setSortDir((prevOrder) => {
             const newOrder = (prevOrder === "asc") ?  "desc" : "asc";
             params.set("sortby", newOrder);
             navigate(`${pathname}?${params}`);

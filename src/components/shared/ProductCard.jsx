@@ -10,7 +10,8 @@ const ProductCard = ({
                          quantity,
                          price,
                          discount,
-                         specialPrice
+                         specialPrice,
+                         about = false
                      }) => {
     const [openProductViewModal, setOpenProductViewModal] = useState(false);
     // const btnLoader = false;
@@ -18,8 +19,11 @@ const ProductCard = ({
     const isAvailable = quantity && Number(quantity) > 0;
 
     const handleProductView = (product) => {
-        setSelectedViewProduct(product);
-        setOpenProductViewModal(true);
+        if (!about) {
+            setSelectedViewProduct(product);
+            setOpenProductViewModal(true);
+        }
+
     };
 
     return (
@@ -59,7 +63,7 @@ const ProductCard = ({
                     }}
 
                     className="text-lg font-semibold mb-2 cursor-pointer">
-                    {trancateText(productName,50)}
+                    {trancateText(productName, 50)}
                 </h2>
 
                 <div className="min-h-20 max-h-20">
@@ -67,35 +71,35 @@ const ProductCard = ({
                         {trancateText(description, 80)}
                     </p>
                 </div>
-
-                <div className="flex items-center justify-between">
-                    {specialPrice ? (
-                            <div className="flex flex-col">
+                {!about && (
+                    <div className="flex items-center justify-between">
+                        {specialPrice ? (
+                                <div className="flex flex-col">
                             <span className="text-gray-400 line-through">
                                 R{Number(price).toFixed(2)}
                             </span>
-                                <span className="text-xl font-bold text-red-600">
+                                    <span className="text-xl font-bold text-red-600">
                                 R{Number(specialPrice).toFixed(2)}
                             </span>
-                            </div>
-                        ) :
-                        (
-                            <div>
+                                </div>
+                            ) :
+                            (
+                                <div>
                                 <span className="text-xl font-bold text-slate-700">
                                     {"  "}
                                     R{Number(price).toFixed(2)}
                                 </span>
-                            </div>
-                        )}
+                                </div>
+                            )}
 
-                    <button
-                        className={`bg-blue-500 ${isAvailable ? "opacity-100 hover:bg-blue-600" : "opacity-70"}
+                        <button
+                            className={`bg-blue-500 ${isAvailable ? "opacity-100 hover:bg-blue-600" : "opacity-70"}
                         text-white py-2 px-3 rounded-lg items-center transition-colors duration-300 w-36 flex justify-center`}>
-                        {isAvailable ? "Add to Cart" : "Out of Stock"}
-                    </button>
+                            {isAvailable ? "Add to Cart" : "Out of Stock"}
+                        </button>
 
-                </div>
-
+                    </div>
+                )}
 
             </div>
             <ProductViewModal

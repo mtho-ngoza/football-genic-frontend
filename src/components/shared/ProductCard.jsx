@@ -1,6 +1,9 @@
 import ProductViewModal from "./ProductViewModal.jsx";
 import {useState} from "react";
 import trancateText from "../../utils/trancateText.js";
+import {addToCart} from "../../store/index.js";
+import {useDispatch} from "react-redux";
+import toast from "react-hot-toast";
 
 const ProductCard = ({
                          productId,
@@ -14,9 +17,10 @@ const ProductCard = ({
                          about = false
                      }) => {
     const [openProductViewModal, setOpenProductViewModal] = useState(false);
-    // const btnLoader = false;
     const [selectedViewProduct, setSelectedViewProduct] = useState("");
     const isAvailable = quantity && Number(quantity) > 0;
+
+    const dispatch = useDispatch();
 
     const handleProductView = (product) => {
         if (!about) {
@@ -24,6 +28,10 @@ const ProductCard = ({
             setOpenProductViewModal(true);
         }
 
+    };
+
+    const addToCartHandler = (cartItems) => {
+        dispatch(addToCart(cartItems, 1, toast));
     };
 
     return (
@@ -93,6 +101,16 @@ const ProductCard = ({
                             )}
 
                         <button
+                            // disabled={}
+                            onClick={() => addToCartHandler({
+                                image,
+                                productName,
+                                description,
+                                specialPrice,
+                                price,
+                                productId,
+                                quantity,
+                            })}
                             className={`bg-blue-500 ${isAvailable ? "opacity-100 hover:bg-blue-600" : "opacity-70"}
                         text-white py-2 px-3 rounded-lg items-center transition-colors duration-300 w-36 flex justify-center`}>
                             {isAvailable ? "Add to Cart" : "Out of Stock"}
